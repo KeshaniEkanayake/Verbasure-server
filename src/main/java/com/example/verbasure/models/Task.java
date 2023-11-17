@@ -1,11 +1,16 @@
 package com.example.verbasure.models;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Id;
 
 @Entity
@@ -24,7 +29,15 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeId", nullable = false)
+    @JsonIgnore
     private Challenge challenge;
+
+    @OneToMany(mappedBy = "task")
+    private List<Question> questions;
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
 
     public Task() {
     }

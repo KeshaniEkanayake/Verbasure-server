@@ -1,9 +1,13 @@
 package com.example.verbasure.models;
 
+import java.util.List;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Challenge {
@@ -12,6 +16,7 @@ public class Challenge {
     private int challengeId;
     
     private String challengeTitle;
+    @Column(length = 1000)
     private String challengeDescription;
     private String challengeImage;
     /*
@@ -32,7 +37,14 @@ public class Challenge {
         this.challengeImage = challengeImage;
         this.module = module;
     }
+
+    @OneToMany(mappedBy = "challenge")
+    private List<Task> tasks;
     
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
     public int getChallengeId() {
         return challengeId;
     }

@@ -1,5 +1,7 @@
 package com.example.verbasure.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,8 +20,9 @@ public class Question {
     //for multiple choice
     private String[] answerOptions;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="taskId", nullable=false)
+    @JsonIgnore
     private Task task;
 
     public Question() {
