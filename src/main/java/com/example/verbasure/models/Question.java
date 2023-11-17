@@ -13,7 +13,6 @@ public class Question {
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int questionId;
-    private String questionType;
     private String questionContent;
     private String correctAnswer;
     //for multiple choice
@@ -26,12 +25,11 @@ public class Question {
     public Question() {
     }
 
-    public String getQuestionType() {
-        return questionType;
-    }
+    
 
-    public void setQuestionType(String questionType) {
-        this.questionType = questionType;
+    public Question(String questionContent, String correctAnswer) {
+        this.questionContent = questionContent;
+        this.correctAnswer = correctAnswer;
     }
 
     public String getQuestionContent() {

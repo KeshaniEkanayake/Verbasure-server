@@ -10,6 +10,7 @@ public class Challenge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int challengeId;
+    
     private String challengeTitle;
     private String challengeDescription;
     private String challengeImage;
@@ -18,7 +19,7 @@ public class Challenge {
      * 2 - Listening
      * 3 - Writing
      * 4 - Grammar
-    */
+     */
     private int module;
     
     
@@ -31,8 +32,11 @@ public class Challenge {
         this.challengeImage = challengeImage;
         this.module = module;
     }
-
-
+    
+    public int getChallengeId() {
+        return challengeId;
+    }
+    
     public String getChallengeTitle() {
         return challengeTitle;
     }

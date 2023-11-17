@@ -13,12 +13,32 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int taskId;
-    
+
+    /*
+     * questionType:
+     * questionAndAnswer
+     * multipleChoice
+     * trueOrFalse
+     */
+    private String questionType;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="challengeId", nullable=false)
+    @JoinColumn(name = "challengeId", nullable = false)
     private Challenge challenge;
 
     public Task() {
+    }
+
+    public String getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
+    }
+
+    public int getTaskId() {
+        return taskId;
     }
 
     public Challenge getChallenge() {
