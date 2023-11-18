@@ -7,6 +7,7 @@ import com.example.verbasure.repositories.ChallengeRepository;
 import com.example.verbasure.repositories.QuestionRepository;
 import com.example.verbasure.repositories.TaskRepository;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class ChallengeController {
 
