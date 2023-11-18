@@ -29,7 +29,7 @@ public class ChallengeController {
         this.questionRepository = questionRepository;
     }
 
-    //get all challenges for reading
+    //get all challenge id's for reading
     @GetMapping("/reading")
     public Map<String, List<?>> getReading1Content() {
         List<Integer> challengeIds = challengeRepository.findIdByModule(1);
@@ -38,18 +38,34 @@ public class ChallengeController {
         return map;
     }
 
+    @GetMapping("/writing")
+    public Map<String, List<?>> getWriting1Content() {
+        List<Integer> challengeIds = challengeRepository.findIdByModule(2);
+        Map<String, List<?>> map = new HashMap<>();
+        map.put("challengeIds", challengeIds);
+        return map;
+    }
+
+    @GetMapping("/speaking")
+    public Map<String, List<?>> getSpeaking1Content() {
+        List<Integer> challengeIds = challengeRepository.findIdByModule(3);
+        Map<String, List<?>> map = new HashMap<>();
+        map.put("challengeIds", challengeIds);
+        return map;
+    }
+
+    @GetMapping("/grammar")
+    public Map<String, List<?>> getListening1Content() {
+        List<Integer> challengeIds = challengeRepository.findIdByModule(4);
+        Map<String, List<?>> map = new HashMap<>();
+        map.put("challengeIds", challengeIds);
+        return map;
+    }
     //get challenge by id
     @GetMapping("/challenge/{id}")
     public ChallengeDTO getChallengeById(@PathVariable int id) {
         Challenge challenge = challengeRepository.findById(id).get();
         ChallengeDTO challengeDTO = ChallengeDTO.challengeDTOFromChallenge(challenge);
         return challengeDTO;
-    }
-
-    @GetMapping("/reading/1/task")
-    public Task getReading1Questions() {
-        Task task = taskRepository.findById(1).get();
-        task.getQuestions();
-        return task;
     }
 }
