@@ -1,6 +1,7 @@
 package com.example.verbasure.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,28 +12,32 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Id;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Question {
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int questionId;
+    
     private String questionContent;
     private String correctAnswer;
     //for multiple choice
     private String[] answerOptions;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="taskId", nullable=false)
     @JsonIgnore
     private Task task;
-
+    
     public Question() {
     }
-
     
-
     public Question(String questionContent, String correctAnswer) {
         this.questionContent = questionContent;
         this.correctAnswer = correctAnswer;
+    }
+    
+    public int getQuestionId() {
+        return questionId;
     }
 
     public String getQuestionContent() {
