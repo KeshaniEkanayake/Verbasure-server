@@ -32,8 +32,6 @@ public class ChallengeController {
     //get all challenges for reading
     @GetMapping("/reading")
     public Map<String, List<?>> getReading1Content() {
-        List<Challenge> challenges = challengeRepository.findByModule(1);
-        // List<ChallengeIdDto> challengeIdDtos = ChallengeIdDto.createChallengeIdDtoList(challenges);
         List<Integer> challengeIds = challengeRepository.findIdByModule(1);
         Map<String, List<?>> map = new HashMap<>();
         map.put("challengeIds", challengeIds);

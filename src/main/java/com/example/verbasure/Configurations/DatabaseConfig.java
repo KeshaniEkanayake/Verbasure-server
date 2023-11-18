@@ -2,9 +2,6 @@ package com.example.verbasure.Configurations;
 
 import com.example.verbasure.repositories.*;
 import com.example.verbasure.models.*;
-
-import java.util.ArrayList;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -161,8 +158,6 @@ class LoadDatabase {
              * 
              * 
              */
-            Task task3 = new Task();
-
         };
     }
 }
