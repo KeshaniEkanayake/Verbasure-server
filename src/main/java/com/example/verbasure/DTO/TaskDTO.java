@@ -29,6 +29,7 @@ public class TaskDTO {
             for (Question question : questions) {
                 answerList.add(question.getCorrectAnswer());
             }
+            Collections.shuffle(questions);
             taskDTO.questions = questions;
             if (taskDTO.questionType.equals("questionAndAnswer")) {
                 Collections.shuffle(answerList);
