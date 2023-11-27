@@ -68,23 +68,23 @@ class LoadDatabase {
             task.setQuestionType("trueOrFalse");
             task = taskRepository.save(task);
             // Questions related to task 2 - True or False
-            question = new Question("Sam Holden is the Yoga teacher", "True");
+            question = new Question("Sam Holden is the Yoga teacher", "true");
             question.setTask(task);
             questionRepository.save(question);
 
-            question = new Question("The Yoga class is once a week", "True");
+            question = new Question("The Yoga class is once a week", "true");
             question.setTask(task);
             questionRepository.save(question);
 
-            question = new Question("The class is at lunch time in room 7", "True");
+            question = new Question("The class is at lunch time in room 7", "true");
             question.setTask(task);
             questionRepository.save(question);
 
-            question = new Question("You need to bring yoga mats to the class", "False");
+            question = new Question("You need to bring yoga mats to the class", "false");
             question.setTask(task);
             questionRepository.save(question);
 
-            question = new Question("The class cannot take 22 people", "False");
+            question = new Question("The class cannot take 22 people", "false");
             question.setTask(task);
             questionRepository.save(question);
 
