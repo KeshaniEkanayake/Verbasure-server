@@ -51,9 +51,12 @@ public class UserController {
     @PostMapping("userLogin")
     public ResponseEntity<String> userLogin(@RequestBody UserDTO userDTO){
 
-        
+        User user = userRepository.findByEmail(userDTO.getEmail());
 
-        Map<String, List<?>> map = new HashMap<>();
-        return new ResponseEntity<>(existingUser);
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 }
