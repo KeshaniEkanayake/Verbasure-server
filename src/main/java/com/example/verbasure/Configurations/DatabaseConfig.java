@@ -221,6 +221,5 @@ class LoadDatabase {
              */
         };
     }
-                };
-        }
-}
+};
+
