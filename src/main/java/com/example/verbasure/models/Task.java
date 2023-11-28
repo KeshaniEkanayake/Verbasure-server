@@ -35,13 +35,13 @@ public class Task {
     @OneToMany(mappedBy = "task")
     private List<Question> questions;
 
+    public Task() {
+    }
+    
     public List<Question> getQuestions() {
         return questions;
     }
-
-    public Task() {
-    }
-
+    
     public String getQuestionType() {
         return questionType;
     }

@@ -2,7 +2,6 @@ package com.example.verbasure.controllers;
 
 import com.example.verbasure.DTO.ChallengeDTO;
 import com.example.verbasure.models.Challenge;
-import com.example.verbasure.models.Task;
 import com.example.verbasure.repositories.ChallengeRepository;
 import com.example.verbasure.repositories.QuestionRepository;
 import com.example.verbasure.repositories.TaskRepository;
