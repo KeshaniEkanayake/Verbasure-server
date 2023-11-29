@@ -29,6 +29,9 @@ public class UserModel implements UserDetails {
         this.username = username;
         this.password = password;
         this.email = email;
+        for (int i = 0; i < roles.length; i++) {
+            roles[i] = roles[i].toUpperCase();
+        }
         this.roles = roles;
 
     }
@@ -70,6 +73,9 @@ public class UserModel implements UserDetails {
     }
 
     public void setRoles(String[] roles) {
+        for (int i = 0; i < roles.length; i++) {
+            roles[i] = roles[i].toUpperCase();
+        }
         this.roles = roles;
     }
 

@@ -1,0 +1,4 @@
+GET http://localhost:8081/reading HTTP/1.1
+Host: example.com
+Cookie: verbasure=eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJleGFtcGxlX3VzZXIyIn0.rIzm10QtGSjqWJmU9XysD-m-yyVgr3retfCR-DrB3jqS7tOW9ZKIJ_evneh1i67I
+Content-Type: application/json

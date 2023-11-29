@@ -6,6 +6,7 @@ import com.example.verbasure.repositories.ChallengeRepository;
 import com.example.verbasure.repositories.QuestionRepository;
 import com.example.verbasure.repositories.TaskRepository;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ public class ChallengeController {
 
     //get all challenge id's for reading
     @GetMapping("/reading")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public Map<String, List<?>> getReading1Content() {
         List<Integer> challengeIds = challengeRepository.findIdByModule(1);
         Map<String, List<?>> map = new HashMap<>();
