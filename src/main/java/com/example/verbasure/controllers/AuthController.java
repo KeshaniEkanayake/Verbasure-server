@@ -1,6 +1,5 @@
 package com.example.verbasure.controllers;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,63 +28,71 @@ import com.example.verbasure.security.JwtUtils;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    @Autowired
-    AuthenticationManager authenticationManager;
+        @Autowired
+        AuthenticationManager authenticationManager;
 
-    @Autowired
-    UserRepository userRepository;
+        @Autowired
+        UserRepository userRepository;
 
-    @Autowired
-    PasswordEncoder encoder;
+        @Autowired
+        PasswordEncoder encoder;
 
-    @Autowired
-    JwtUtils jwtUtils;
+        @Autowired
+        JwtUtils jwtUtils;
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        UserModel userDetails = (UserModel) authentication.getPrincipal();
-
-        ResponseCookie jwtCookie = jwtUtils.generateCookieWithJwtToken(userDetails);
-
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(new UserInfoResponse(
-                        userDetails.getUsername(),
-                        userDetails.getEmail(),
-                        roles));
-    }
-
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Error: Username is already taken!");
+        @GetMapping("/")
+        public String home() {
+                return "Welcome to Verbasure!";
         }
 
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Error: Email is already in use!");
+        @PostMapping("/signin")
+        public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+            try {
+                Authentication authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+                                loginRequest.getPassword()));
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                UserModel userDetails = (UserModel) authentication.getPrincipal();
+
+                ResponseCookie jwtCookie = jwtUtils.generateCookieWithJwtToken(userDetails);
+
+                List<String> roles = userDetails.getAuthorities().stream()
+                        .map(item -> item.getAuthority())
+                        .collect(Collectors.toList());
+
+                return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                        .body(new UserInfoResponse(
+                                userDetails.getUsername(),
+                                userDetails.getEmail(),
+                                roles));
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body("Invalid login request!");
+            }
         }
 
-        // Create new user's account
-        UserModel user = new UserModel(signUpRequest.getUsername(),
-                encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getEmail(),
-                signUpRequest.getRoles()
-                );
-        userRepository.save(user);
+        @PostMapping("/signup")
+        public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
+                if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+                        return ResponseEntity
+                                        .badRequest()
+                                        .body("Error: Username is already taken!");
+                }
 
-        return ResponseEntity.ok().body("User registered successfully!");
-    }
+                if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+                        return ResponseEntity
+                                        .badRequest()
+                                        .body("Error: Email is already in use!");
+                }
+
+                // Create new user's account
+                UserModel user = new UserModel(signUpRequest.getUsername(),
+                                encoder.encode(signUpRequest.getPassword()),
+                                signUpRequest.getEmail(),
+                                signUpRequest.getRoles());
+                userRepository.save(user);
+
+                return ResponseEntity.ok().body("User registered successfully!");
+        }
 }
